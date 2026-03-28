@@ -54,3 +54,17 @@ async def get_conversation(conversation_id: int):
     if conversation is None:
         raise HTTPException(status_code=404, detail="Conversation not found")
     return conversation
+@app.get("/")
+async def root():
+    return {
+        "message": "AI Companion Chatbot API",
+        "version": "1.0.0",
+        "endpoints": {
+            "chat": "/chat/",
+            "conversation": "/conversations/{conversation_id}"
+        }
+    }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
